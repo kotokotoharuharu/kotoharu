@@ -335,7 +335,12 @@ function showStartPage() {
     document.getElementById('start-page').style.display = 'block';
 }
 
-
+function showGuidePage() {
+    document.getElementById('top-page').style.display = 'none';
+    document.getElementById('record-page').style.display = 'none';
+    document.getElementById('aggregate-page').style.display = 'none';
+    document.getElementById('start-page').style.display = 'block';
+}
 function addUrinationTime() {
     const urinationTimesDiv = document.getElementById('urination-times');
     const newTimeInput = document.createElement('input');
