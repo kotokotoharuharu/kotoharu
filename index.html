@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生活スタイル記録アプリ</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="top-page">
+        <h1>生活スタイルを記録しよう</h1>
+
+        <button class="guide-button" onclick="showStartPage()">はじめに</button>
+        <button class="guide-button" onclick="showGuidePage()">使い方</button>
+　　　
+        <div class="button-container">
+            <!-- 日付ボタン -->
+            <button onclick="goToDay(1)">1日目</button>
+            <button onclick="goToDay(2)">2日目</button>
+            <button onclick="goToDay(3)">3日目</button>
+            <button onclick="goToDay(4)">4日目</button>
+            <button onclick="goToDay(5)">5日目</button>
+            <button onclick="goToDay(6)">6日目</button>
+            <button onclick="goToDay(7)">7日目</button>
+        </div>
+        <button id="aggregate-btn" onclick="goToAggregatePage()">集計</button>
+    </div>
+    
+    
+    <div id="start-page" style="display: none;">
+    <h1>はじめに</h1>
+    <ul>
+        <li>生活改善、、、した方が良いのだろうけどどうしてもできない(*´Д｀)</li>
+        <li>どこから手を付けてよいのかわからないため、このような困りごとが起こるといわれています。決してあなたが悪いわけではありません！</li>
+        <li>このような場合、まずはご自身の生活スタイルを知り、何から改善していくか優先順位をつけることが大事になります</li>
+         <li>まずはご自身の生活スタイルを振り返り、変えたいと思うところから変えていきましょう(^^♪</li>
+    </ul>
+    <button onclick="goToTopPage()">戻る</button>
+　　</div>
+　　
+　　
+　　<div id="guide-page" style="display: none;">
+    <h1>使い方ガイド</h1>
+    <p>このアプリの使い方</p>
+    <ul>
+        <li>7日間の睡眠、運動、昼寝、排尿を記録し、生活スタイルを把握するアプリです</li>
+        <li>「1日目の記録」ボタンを押して入力を開始してください</li>
+        <li>日付を選択後、前日の入眠時間を起点に入力を開始してください。昼寝や運動を実施していない日は空欄にして下さい</li>
+        <li>昼寝ならびに運動を複数回行った日は、追加ボタンを押してすべて記入してください。</li>
+        <li>入力時間は大まかで構いません。夜間頻尿時間は翌朝起きたときの記憶で記載してください</li>
+        <li>入力を終えたら「記録終了」ボタンを押してください</li>
+        <li>Topページの集計ボタンを押すと生活の記録がグラフで表示されます。ご自身の生活スタイルを振り返るきっかけになれば幸いです
+        </li>
+    </ul>
+    <button onclick="goToTopPage()">戻る</button>
+　　</div>
+
+    <div id="record-page" style="display: none;">
+        <h2 id="day-title">日付選択</h2>
+        <label for="date-picker">記録日:</label>
+        <input type="date" id="date-picker">
+        <label for="sleep-time">入眠時刻:</label>
+        <input type="time" id="sleep-time">
+        <label for="wake-time">起床時刻:</label>
+        <input type="time" id="wake-time">
+
+        
+        <!-- 昼寝の時間帯入力フィールド -->
+        <div id="nap-times">
+            <label>昼寝開始時刻:</label>
+            <input type="time" class="nap-start-time">
+            <label>昼寝終了時刻:</label>
+            <input type="time" class="nap-end-time">
+        </div>
+        <button onclick="addNapTime()">昼寝時間を追加</button>
+        
+        <!-- 運動の時間帯入力フィールド -->
+        <div id="exercise-times">
+            <label>運動開始時刻:</label>
+            <input type="time" class="exercise-start-time">
+            <label>運動終了時刻:</label>
+            <input type="time" class="exercise-end-time">
+        </div>
+        <button onclick="addExerciseTime()">運動時間を追加</button>
+        
+        <!-- 排尿時間帯入力フィールド -->
+        <div id="urination-times">
+            <label>排尿時刻:</label>
+            <div id="urination-buttons" class="button-grid"></div>
+        </div>
+        <div id="drinking-section">
+            <label>飲酒:</label>
+            <button id="drink-yes" class="drinking-button" onclick="toggleDrinking('有')">有</button>
+            <button id="drink-no" class="drinking-button" onclick="toggleDrinking('無')">無</button>
+        </div>
+   
+        
+        <div id="error-message" class="error"></div>
+        <button onclick="saveRecord()">記録終了</button>
+        <button onclick="goToTopPage()">戻る</button>
+    </div>
+
+    <div id="aggregate-page" style="display: none;">
+        <h2>一週間の集計(入力開始日の都合や排尿時刻をラフに入力している都合で、入眠直後や起床時の排尿が夜間排尿とカウントされることがあります)</h2>
+        <div id="all-graphs"></div>
+        <button onclick="goToTopPage()">戻る</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
