@@ -69,7 +69,7 @@ input[type="time"], input[type="date"] {
 #all-graphs {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     margin-top: 20px;
 }
 
