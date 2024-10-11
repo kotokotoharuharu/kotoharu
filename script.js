@@ -2,8 +2,22 @@ let records = [];
 let currentDay = 1;
 let selectedUrinationTimes = new Set();
 
+// ページ読み込み時にローカルストレージからデータを取得
+window.onload = () => {
+    const storedRecords = localStorage.getItem('records');
+    if (storedRecords) {
+        records = JSON.parse(storedRecords);
+    }
+};
+
 function goToDay(day) {
     currentDay = day;
+    
+    // ローカルストレージからデータを読み込み
+    const storedRecords = localStorage.getItem('records');
+    if (storedRecords) {
+        records = JSON.parse(storedRecords);
+    }
     document.getElementById('day-title').textContent = `${day}日目の記録`;
     document.getElementById('top-page').style.display = 'none';
     document.getElementById('record-page').style.display = 'block';
@@ -151,6 +165,8 @@ function timeToMinutes(timeStr) {
         nightUrinationCount,
         drinking
     };
+    // ローカルストレージにデータを保存
+    localStorage.setItem('records', JSON.stringify(records));
 
     drawGraph(currentDay); // グラフを描写
     goToTopPage(); // トップページに戻る
