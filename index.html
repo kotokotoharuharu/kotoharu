@@ -3,12 +3,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>生活スタイル記録アプリ</title>
-    <link rel="stylesheet" href="./style.css"/>
-</head>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="top-page">
-        <h1>生活スタイルを記録しよう</h1>
+        <h1>生活スタイルの記録</h1>
+
         <button class="guide-button" onclick="showStartPage()">はじめに</button>
         <button class="guide-button" onclick="showGuidePage()">使い方</button>
 　　　
@@ -30,9 +30,9 @@
     <h1>はじめに</h1>
     <ul>
         <li>生活改善、、、した方が良いのだろうけどどうしてもできない(*´Д｀)</li>
-        <li>どこから手を付けてよいのかわからないため、このような困りごとが起こるといわれています。決してあなたが悪いわけではありません！</li>
-        <li>このような場合、まずはご自身の生活スタイルを知り、何から改善していくか優先順位をつけることが大事になります</li>
-         <li>まずはご自身の生活スタイルを振り返り、変えたいと思うところから変えていきましょう(^^♪</li>
+        <li>どこから手を付けてよいのかわからないためにこのような困りごとが起こるといわれています。決してあなたが悪いわけではありません( ｀ー´)ノ</li>
+        <li>このような場合、まずはご自身の生活スタイルを知り何から改善していくか優先順位をつけることが大事になります</li>
+         <li>本アプリを使って自身の生活スタイルを振り返り、変えたいと思う行動から変えていきましょう(^^♪</li>
     </ul>
     <button onclick="goToTopPage()">戻る</button>
 　　</div>
@@ -58,10 +58,16 @@
         <h2 id="day-title">日付選択</h2>
         <label for="date-picker">記録日:</label>
         <input type="date" id="date-picker">
+       
+         <div class="time-input-group">
         <label for="sleep-time">入眠時刻:</label>
-        <input type="time" id="sleep-time">
-        <label for="wake-time">起床時刻:</label>
-        <input type="time" id="wake-time">
+        <input id="sleep-time" type="time">
+    </div>
+    <div class="time-input-group">
+         <label for="wake-time">起床時刻:</label>
+         <input id="wake-time" type="time">
+    </div>
+
 
         
         <!-- 昼寝の時間帯入力フィールド -->
