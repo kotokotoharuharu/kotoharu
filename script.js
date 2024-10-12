@@ -1,8 +1,6 @@
 let records = [];
 let currentDay = 1;
 let selectedUrinationTimes = new Set();
-let selectedMedications = new Set();
-
 
 // ページ読み込み時にローカルストレージからデータを取得
 window.onload = () => {
@@ -28,7 +26,6 @@ function goToDay(day) {
     
     const urinationButtonsDiv = document.getElementById('urination-buttons');
     urinationButtonsDiv.innerHTML = '';
-    
     
     const record = records[currentDay - 1];
     
@@ -224,18 +221,7 @@ function addExerciseTime(start = '', end = '') {
     exerciseTimesDiv.appendChild(newEndTimeLabel);
     exerciseTimesDiv.appendChild(newEndTimeInput);
 }
-function toggleMedication(medication) {
-    const buttons = document.querySelectorAll('.medication-button');
-    const button = Array.from(buttons).find(btn => btn.textContent === medication);
 
-    if (selectedMedications.has(medication)) {
-        selectedMedications.delete(medication);
-        button.classList.remove('selected');
-    } else {
-        selectedMedications.add(medication);
-        button.classList.add('selected');
-    }
-}
 function goToAggregatePage() {
     const allGraphsDiv = document.getElementById('all-graphs');
     allGraphsDiv.innerHTML = '';
