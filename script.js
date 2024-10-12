@@ -26,9 +26,12 @@ function goToDay(day) {
     
     const urinationButtonsDiv = document.getElementById('urination-buttons');
     urinationButtonsDiv.innerHTML = '';
-    
+       // 飲酒状態の設定（初期化または復元）
     const record = records[currentDay - 1];
-    
+    const drinkingStatus = record && record.drinking ? record.drinking : null;
+   toggleDrinking(drinkingStatus); // 状態をクリアして再設定
+   
+   
     // 既存の記録から選択された排尿時刻を復元する
     if (record && record.urinationTimes) {
         record.urinationTimes.forEach(hour => {
@@ -77,6 +80,8 @@ function goToDay(day) {
         const exerciseTimesDiv = document.getElementById('exercise-times');
         exerciseTimesDiv.innerHTML = '';
         addExerciseTime();
+
+    
     }
 }
 
@@ -98,7 +103,7 @@ function saveRecord() {
     const date = document.getElementById('date-picker').value;
     const sleepTime = document.getElementById('sleep-time').value;
     const wakeTime = document.getElementById('wake-time').value;
-    const drinking = document.querySelector('.drinking-button.selected') ? document.querySelector('.drinking-button.selected').textContent : '無';
+    const drinking = records[currentDay - 1].drinking || '無';  // `toggleDrinking()`で更新済み
     const urinationTimes = Array.from(selectedUrinationTimes).map(hour => {
         // 時間を「:30」に変換
         return `${String(hour).padStart(2, '0')}:30`;
@@ -163,7 +168,7 @@ function timeToMinutes(timeStr) {
         urinationTimes,
         totalUrinationCount: urinationTimes.length,
         nightUrinationCount,
-        drinking
+        drinking,
     };
     // ローカルストレージにデータを保存
     localStorage.setItem('records', JSON.stringify(records));
@@ -368,5 +373,47 @@ function addUrinationTime() {
 function toggleDrinking(status) {
     const buttons = document.querySelectorAll('.drinking-button');
     buttons.forEach(button => button.classList.remove('selected'));
-    document.getElementById(`drink-${status === '有' ? 'yes' : 'no'}`).classList.add('selected');
+
+    if (status) {
+        // 飲酒状態が指定されている場合にのみボタンを選択状態にする
+        const selectedButton = document.getElementById(`drink-${status === '有' ? 'yes' : 'no'}`);
+        selectedButton.classList.add('selected');
+    }
+    
+    // 飲酒状態を記録に保存
+    if (!records[currentDay - 1]) {
+        records[currentDay - 1] = {};
+    }
+    records[currentDay - 1].drinking = status || ''; // 初期状態は空文字列
+    
+    // ローカルストレージに更新内容を保存
+    localStorage.setItem('records', JSON.stringify(records));
+}
+
+function deleteRecord() {
+    // 削除確認のポップアップ
+    const confirmation = confirm(`${currentDay}日目の記録を削除しますか？`);
+    if (!confirmation) return; // 確認しなければ削除しない
+
+    // 記録を削除
+    records[currentDay - 1] = null;
+    
+    // ローカルストレージの更新
+    localStorage.setItem('records', JSON.stringify(records));
+
+    // 削除後のフィールドをクリア
+    document.getElementById('date-picker').value = '';
+    document.getElementById('sleep-time').value = '';
+    document.getElementById('wake-time').value = '';
+    
+    // 昼寝や運動のフィールドもクリア
+    document.getElementById('nap-times').innerHTML = '';
+    document.getElementById('exercise-times').innerHTML = '';
+
+    // 選択されていた排尿時刻もクリア
+    selectedUrinationTimes.clear();
+    document.getElementById('urination-buttons').innerHTML = '';
+    
+    // トップページに戻る
+    goToTopPage();
 }
