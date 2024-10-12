@@ -4,6 +4,148 @@ body, html {
     padding: 0;
     height: 100%;
     font-family: Arial, sans-serif;
+    background-color: #ffcccb; /* かなり薄いピンク */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+/* トップページ、入力ページ、集計ページを中央揃え */
+.top-page, .record-page, .aggregate-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+/* 共通ボタンスタイル */
+button {
+    margin: 15px;
+    padding: 15px 30px;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+}
+.urination-button {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #45a049;
+}
+
+.urination-button.selected {
+    background-color: #E6A1C0;
+    color: #555;
+}
+button:hover {
+    background-color: #45a049;
+}
+
+/* タイトルスタイル */
+h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+/* レコード入力フォームのスタイル */
+input[type="time"], input[type="date"] {
+    margin: 18px;
+    padding: 10px;
+    font-size: 18px;
+}
+
+/* グラフ表示エリア */
+#all-graphs {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    margin-top: 20px;
+}
+
+/* 各グラフのレイアウト */
+.aggregate-graph {
+    margin: 10px 0;
+    text-align: center;
+}
+/* styles.css */
+#exercise-times label {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+#exercise-times input[type="time"] {
+    display: block;
+    margin: 5px 0;
+}
+
+/* 昼寝と運動時間の追加フィールドのスタイリング */
+#nap-times label, #exercise-times label {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+#nap-times input[type="time"], #exercise-times input[type="time"] {
+    display: block;
+    margin: 5px 0;
+}
+
+/* 中央揃え用 */
+canvas {
+    margin: 0 auto;
+}
+
+#guide-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    height: 100vh;
+    text-align: left;
+}
+
+#start-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: left;
+}
+.guide-button {
+    background-color: #007BFF; /* 青色 */
+    color: white;
+}
+
+.guide-button:hover {
+    background-color: #0056b3; /* ホバー時の少し濃い青色 */
+}
+
+.drinking-button {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #45a049;
+}
+
+.drinking-button.selected {
+    background-color: #E6A1C0;
+    color: #555;
+}
+
+
 }
 
 .container {
