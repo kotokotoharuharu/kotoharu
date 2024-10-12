@@ -18,18 +18,33 @@ function goToDay(day) {
     if (storedRecords) {
         records = JSON.parse(storedRecords);
     }
+    
+    // 現在の日付の記録がない場合は初期化
+    if (!records[currentDay - 1]) {
+        records[currentDay - 1] = {
+            date: '',
+            sleepTime: '',
+            wakeTime: '',
+            napTimes: [],
+            exerciseTimes: [],
+            urinationTimes: [],
+            drinking: '',
+        };
+    }
+    const record = records[currentDay - 1];
+
+    // ここでデータを個別の日に基づいて読み込み・表示する
     document.getElementById('day-title').textContent = `${day}日目の記録`;
     document.getElementById('top-page').style.display = 'none';
     document.getElementById('record-page').style.display = 'block';
     
-    selectedUrinationTimes.clear();
+      selectedUrinationTimes.clear();
     
     const urinationButtonsDiv = document.getElementById('urination-buttons');
     urinationButtonsDiv.innerHTML = '';
-       // 飲酒状態の設定（初期化または復元）
-    const record = records[currentDay - 1];
-    const drinkingStatus = record && record.drinking ? record.drinking : null;
-   toggleDrinking(drinkingStatus); // 状態をクリアして再設定
+
+    // 飲酒状態の設定
+    toggleDrinking(record.drinking);
    
    
     // 既存の記録から選択された排尿時刻を復元する
@@ -40,20 +55,11 @@ function goToDay(day) {
             selectedUrinationTimes.add(hourInt);
         });
     }
-
-    for (let i = 0; i < 24; i++) {
-        const button = document.createElement('button');
-        button.className = 'urination-button';
-        button.textContent = `${i}:00~`;
-        
-        // 以前に選択された時間が含まれている場合、selectedクラスを追加する
-        if (selectedUrinationTimes.has(i)) {
-            button.classList.add('selected');
-        }
-
-        button.onclick = () => toggleUrinationTime(i);
-        urinationButtonsDiv.appendChild(button);
-    }
+// その他のデータの初期化または表示
+    document.getElementById('date-picker').value = record.date;
+    document.getElementById('sleep-time').value = record.sleepTime;
+    document.getElementById('wake-time').value = record.wakeTime;
+    for (let i = 0; i < 24; i++) 
 
     // 他の入力フィールドの値を設定
     if (record) {
