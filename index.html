@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>生活スタイル記録アプリ</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="top-page">
@@ -42,10 +42,7 @@
     <h1>使い方ガイド</h1>
     <p>このアプリの使い方</p>
     <ul>
-        <li>携帯で本アプリを使う場合は、chromeで開いて画面右上の•••が縦に並んでいるボタンを押し、「ホーム画面に追加」を押して下さい。これにより毎日に記録が少しだけ簡単にできるようになります</li>
-    	<li>Lineから開いた場合は、画面の•••が縦に並んでいるボタンを押し、「デフォルトのブラウザで開く」を押してから上記の対応をしてください</li>
-        
-        <li>これは7日間の睡眠、運動、昼寝、排尿を記録し、生活スタイルを把握するアプリです</li>
+        <li>7日間の睡眠、運動、昼寝、排尿を記録し、生活スタイルを把握するアプリです</li>
         <li>「1日目の記録」ボタンを押して入力を開始してください</li>
         <li>日付を選択後、前日の入眠時間を起点に入力を開始してください。昼寝や運動を実施していない日は空欄にして下さい</li>
         <li>昼寝ならびに運動を複数回行った日は、追加ボタンを押してすべて記入してください。</li>
@@ -101,16 +98,26 @@
             <button id="drink-yes" class="drinking-button" onclick="toggleDrinking('有')">有</button>
             <button id="drink-no" class="drinking-button" onclick="toggleDrinking('無')">無</button>
         </div>
-   
         
+        <div id="medication-buttons">
+              <label>服薬:</label>
+                 <button class="medication-button" onclick="toggleMedication('高血圧')">高血圧</button>
+                   <button class="medication-button" onclick="toggleMedication('高脂血症')">高脂血症</button>
+                    <button class="medication-button" onclick="toggleMedication('花粉症')">花粉症</button>
+                   <button class="medication-button" onclick="toggleMedication('かぜ薬')">かぜ薬</button>
+                  <button class="medication-button" onclick="toggleMedication('その他')">その他</button>
+            </div>
+
+
+
         <div id="error-message" class="error"></div>
         <button onclick="saveRecord()">記録終了</button>
         <button onclick="goToTopPage()">戻る</button>
     </div>
 
     <div id="aggregate-page" style="display: none;">
-         <h2>一週間の集計</h2>
-        　<ul>
+        <h2>一週間の集計</h2>
+        <ul>
              入力開始日の都合や排尿時刻をラフに入力している都合で、入眠直後や起床時の排尿が夜間排尿とカウントされることがあります
         
           </ul>
