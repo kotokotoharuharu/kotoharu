@@ -107,11 +107,10 @@
     <div id="medication-buttons">
          <label>服薬:</label>
        <!-- 服薬の各ボタン -->
-            <button id="medication-hypertension" class="medication-button" onclick="toggleMedication('hypertension')">高血圧薬</button>
-            <button id="medication-hyperlipidemia" class="medication-button" onclick="toggleMedication('hyperlipidemia')">高脂血症薬</button>
+            <button id="medication-hypertension" class="medication-button" onclick="toggleMedication('hypertension')">高血圧</button>
+            <button id="medication-hyperlipidemia" class="medication-button" onclick="toggleMedication('hyperlipidemia')">高脂血症</button>
             <button id="medication-cold" class="medication-button" onclick="toggleMedication('cold')">風邪薬</button>
-            <button id="medication-allergy" class="medication-button" onclick="toggleMedication('allergy')">アレルギー薬</button>
-            <button id="medication-hypnotic" class="medication-button" onclick="toggleMedication('hypnotic')">睡眠薬</button>
+            <button id="medication-allergy" class="medication-button" onclick="toggleMedication('allergy')">アレルギー</button>
             <button id="medication-other" class="medication-button" onclick="toggleMedication('other')">その他</button>
     </div>
 
@@ -125,11 +124,7 @@
 
     <div id="aggregate-page" style="display: none;">
         <h2>一週間の集計</h2>
-    	    <ul>入力開始日の都合や排尿時刻をラフに入力している都合で、入眠直後や起床時の排尿が夜間排尿とカウントされることがあります</ul>
- 	        <ul></ul>
- 		    <ul>黄:睡眠時間</ul>
- 			<ul>青:昼寝時間</ul>
- 			<ul>ピンク:運動時間</ul>
+ 	<ul>入力開始日の都合や排尿時刻をラフに入力している都合で、入眠直後や起床時の排尿が夜間排尿とカウントされることがあります</ul>
         <div id="all-graphs"></div>
         <button onclick="goToTopPage()">戻る</button>
     </div>
