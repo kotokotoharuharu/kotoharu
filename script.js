@@ -372,11 +372,11 @@ function drawGraph(day, aggregate = false) {
     ctx.fillText(`起床: ${record.wakeTime}`, 200, 180);
     ctx.fillText(`総排尿回数: ${record.totalUrinationCount}`, 200, 200);
     ctx.fillText(`夜間排尿回数: ${record.nightUrinationCount}`, 200, 220);
-    ctx.fillText(`飲酒の有無: ${record.drinking}`, 200, 240); // 飲酒の有無を表示
+    ctx.fillText(`飲酒: ${record.drinking}`, 200, 240); // 飲酒の有無を表示
     ctx.fillText(``, 200, 260);
-    ctx.fillText(`黄:睡眠時間`, 200, 280);
-    ctx.fillText(`青:昼寝時間`, 200, 300);
-    ctx.fillText(`ピンク:運動時間`, 200, 320);
+    ctx.fillText(``, 200, 280);
+    ctx.fillText(``, 200, 300);
+    ctx.fillText(``, 200, 320);
 }
 
 function timeToAngle(timeStr) {
