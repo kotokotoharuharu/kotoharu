@@ -213,7 +213,6 @@ function timeToMinutes(timeStr) {
         totalUrinationCount: urinationTimes.length,
         nightUrinationCount,
         drinking,
-        medications,
     };
     // ローカルストレージにデータを保存
     localStorage.setItem('records', JSON.stringify(records));
@@ -375,9 +374,9 @@ function drawGraph(day, aggregate = false) {
     ctx.fillText(`夜間排尿回数: ${record.nightUrinationCount}`, 200, 220);
     ctx.fillText(`飲酒の有無: ${record.drinking}`, 200, 240); // 飲酒の有無を表示
     ctx.fillText(``, 200, 260);
-    ctx.fillText(``, 200, 280);
-    ctx.fillText(``, 200, 300);
-    ctx.fillText(``, 200, 320);
+    ctx.fillText(`黄:睡眠時間`, 200, 280);
+    ctx.fillText(`青:昼寝時間`, 200, 300);
+    ctx.fillText(`ピンク:運動時間`, 200, 320);
 }
 
 function timeToAngle(timeStr) {
@@ -470,27 +469,3 @@ function deleteRecord() {
     // 指定日付のデータを初期化するために goToDay 関数を呼び出し
     goToDay(currentDay);
 }
-function updateButtonColors() {
-    // ローカルストレージからデータを取得
-    const records = JSON.parse(localStorage.getItem('records')) || [];
-
-    records.forEach((record, index) => {
-        const dayButton = document.getElementById(`day-button-${index + 1}`);
-        
-        // 記録が存在するかを確認
-        if (record && record.date) {
-            dayButton.style.backgroundColor = 'gray';
-        } else {
-            dayButton.style.backgroundColor = '#4CAF50';
-        }
-    });
-}
-
-// ページロード時にボタンの色を更新
-window.onload = function() {
-    updateButtonColors();
-};
-// ページロード時にボタンの色を更新
-window.onload = function() {
-    updateButtonColors();
-};
