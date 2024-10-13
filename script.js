@@ -461,6 +461,11 @@ function deleteRecord() {
     // ローカルストレージの更新
     localStorage.setItem('records', JSON.stringify(records));
 
+// ボタンの色を緑に変更
+    const dayButton = document.getElementById(`day-button-${currentDay}`);
+    if (dayButton) {
+        dayButton.style.backgroundColor = '#4CAF50';
+    }
     // 指定日付のデータを初期化するために goToDay 関数を呼び出し
     goToDay(currentDay);
 }
