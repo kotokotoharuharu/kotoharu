@@ -40,22 +40,21 @@
 　　
 　　
 　　<div id="guide-page" style="display: none;">
-    <h1>使い方ガイド</h1>
-    <p>このアプリの使い方</p>
-    <ul>
-	<li>chromeで開いて画面右上の•••が縦に並んでいるボタンを押し、「ホーム画面に追加」を押して下さい。これにより毎日に記録が少しだけ簡単にできるようになります</li>
-	<li>lineで開いた場合は•••が縦に並んでいるボタンを押し、「デフォルトのブラウザで開く」を押し上記対応をしてください</li>
-        <li>これは7日間の睡眠、運動、昼寝、排尿を記録し、生活スタイルを把握するアプリです</li>
-        <li>「1日目の記録」ボタンを押して入力を開始してください</li>
-        <li>日付を選択後、前日の入眠時間を起点に入力を開始してください。飲酒も有無も前日分を記載しください</li>
-        <li>昼寝や運動を実施していない日は空欄にして下さい。複数回行った日は、追加ボタンを押してすべて記入してください</li>
-        <li>入力時間は大まかで構いません。夜間頻尿時間は翌朝起きたときの記憶で記載してください</li>
-        <li>入力を終えたら「記録終了」ボタンを押してください</li>
-        <li>Topページの集計ボタンを押すと生活の記録がグラフで表示されます。ご自身の生活スタイルを振り返るきっかけになれば幸いです </li>
-        <li>データ入力しなおしたいときは「記録削除ボタン」を押したら再入力が容易になります</li>
-        <li>なお、ここで記録したデータはご本人しか確認することはできませんので安心してお使いください</li>
-    </ul>
-    <button onclick="goToTopPage()">戻る</button>
+        <h1>使い方ガイド</h1>
+        <p>このアプリの使い方</p>
+        <ul>
+            <li>これは7日間の睡眠、運動、昼寝、排尿を記録し、生活スタイルを把握するアプリです</li>
+	        <li>携帯で使う場合は、chromeで開いて画面右上の•••が縦に並んでいるボタンを押し、「ホーム画面に追加」を押して下さい。これにより毎日の記録が簡単にできるようになります</li>
+	        <li>Lineで開いた場合は•••が縦に並んでいるボタンを押し、「デフォルトのブラウザで開く」を押した後上記対応をしてください</li>
+            <li>「1日目の記録」ボタンから入力を開始してください</li>
+            <li>日付を選択後、前日の入眠時間を起点に入力を開始してください。飲酒の有無も前日分を記載しください</li>
+            <li>昼寝や運動を実施していない日は空欄にして下さい。複数回行った日は、追加ボタンを押してすべて記入してください</li>
+            <li>入力時間は大まかで構いません。特に夜間頻尿時間は感覚で記載していただいて構いません</li>
+            <li>入力を終えたら「記録終了」ボタンを押してください</li>
+            <li>Topページの集計ボタンを押すと生活の記録がグラフで表示されます。ご自身の生活スタイルを振り返り、例えば運動が少なかったら運動してみるとか、毎晩飲酒しているなら減らしてみるとか行動変容のきっかけになればと思います
+            <li>なお、ここで記録したデータはご本人しか確認することはできませんので安心してお使いください</li>
+        </ul>
+        <button onclick="goToTopPage()">戻る</button>
 　　</div>
 
     <div id="record-page" style="display: none;">
@@ -63,25 +62,24 @@
         <label for="date-picker">記録日:</label>
         <input type="date" id="date-picker">
        
-         <div class="time-input-group">
+    <div class="time-input-group">
         <label for="sleep-time">入眠時刻:</label>
         <input id="sleep-time" type="time">
     </div>
+    
     <div class="time-input-group">
          <label for="wake-time">起床時刻:</label>
          <input id="wake-time" type="time">
     </div>
 
-
-        
-        <!-- 昼寝の時間帯入力フィールド -->
-        <div id="nap-times">
+    <!-- 昼寝の時間帯入力フィールド -->
+    <div id="nap-times">
             <label>昼寝開始時刻:</label>
             <input type="time" class="nap-start-time">
             <label>昼寝終了時刻:</label>
             <input type="time" class="nap-end-time">
-        </div>
-        <button onclick="addNapTime()">昼寝時間を追加</button>
+    </div>
+    <button onclick="addNapTime()">昼寝時間を追加</button>
         
         <!-- 運動の時間帯入力フィールド -->
         <div id="exercise-times">
@@ -92,23 +90,37 @@
         </div>
         <button onclick="addExerciseTime()">運動時間を追加</button>
         
-        <!-- 排尿時間帯入力フィールド -->
-        <div id="urination-times">
+      <!-- 排尿時間帯入力フィールド -->
+      <div id="urination-times">
             <label>排尿時刻:</label>
             <div id="urination-buttons" class="button-grid"></div>
         </div>
+        
+    
+        
         <div id="drinking-section">
             <label>飲酒:</label>
             <button id="drink-yes" class="drinking-button" onclick="toggleDrinking('有')">有</button>
             <button id="drink-no" class="drinking-button" onclick="toggleDrinking('無')">無</button>
         </div>
-   
         
-        <div id="error-message" class="error"></div>
-        <button onclick="saveRecord()">記録終了</button>
-        <button onclick="deleteRecord()">記録削除</button> <!-- 削除ボタン -->
-        <button onclick="goToTopPage()">戻る</button>
+    <div id="medication-buttons">
+         <label>服薬:</label>
+       <!-- 服薬の各ボタン -->
+            <button id="medication-hypertension" class="medication-button" onclick="toggleMedication('hypertension')">高血圧</button>
+            <button id="medication-hyperlipidemia" class="medication-button" onclick="toggleMedication('hyperlipidemia')">高脂血症</button>
+            <button id="medication-cold" class="medication-button" onclick="toggleMedication('cold')">風邪薬</button>
+            <button id="medication-allergy" class="medication-button" onclick="toggleMedication('allergy')">アレルギー</button>
+            <button id="medication-other" class="medication-button" onclick="toggleMedication('other')">その他</button>
     </div>
+
+        
+    <div id="error-message" class="error"></div>
+            <button onclick="saveRecord()">記録終了</button>
+             <button onclick="deleteRecord()">記録削除</button> <!-- 削除ボタン -->
+             <button onclick="goToTopPage()">戻る</button>
+    </div>
+
 
     <div id="aggregate-page" style="display: none;">
         <h2>一週間の集計</h2>
