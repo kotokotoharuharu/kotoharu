@@ -217,6 +217,12 @@ function timeToMinutes(timeStr) {
     // ローカルストレージにデータを保存
     localStorage.setItem('records', JSON.stringify(records));
 
+
+// ボタンの色を灰色に変更
+    const dayButton = document.getElementById(`day-button-${currentDay}`);
+    if (dayButton) {
+        dayButton.style.backgroundColor = 'gray';
+    }
     drawGraph(currentDay); // グラフを描写
     goToTopPage(); // トップページに戻る
 }
