@@ -154,6 +154,19 @@ function saveRecord() {
                 end: napEndTimes[i].value
             });
         }
+    localStorage.setItem('records', JSON.stringify(records));
+
+    // 現在の日のボタンの色を変更
+    const dayButton = document.getElementById(`day-button-${currentDay}`);
+    if (dayButton) {
+        dayButton.style.backgroundColor = 'gray';
+    }
+
+    drawGraph(currentDay); // グラフを描写
+    goToTopPage(); // トップページに戻る
+        
+        
+        
     }
 function isInNightPeriod(sleepTime, wakeTime, time) {
     const sleepMinutes = timeToMinutes(sleepTime);
