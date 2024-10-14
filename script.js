@@ -7,6 +7,7 @@ window.onload = () => {
     const storedRecords = localStorage.getItem('records');
     if (storedRecords) {
         records = JSON.parse(storedRecords);
+        
     }
 };
 
@@ -495,8 +496,19 @@ function updateButtonColors() {
     });
 }
 
-// ページロード時にボタンの色を更新
-window.onload = function() {
-    updateButtonColors();
+// ページ読み込み時にローカルストレージからデータを取得
+window.onload = () => {
+    const storedRecords = localStorage.getItem('records');
+    if (storedRecords) {
+        records = JSON.parse(storedRecords);
+        updateButtonColors(); // ボタンの色を更新
+
+        // グラフをリロード時に描写
+        records.forEach((record, index) => {
+            if (record && record.sleepTime && record.wakeTime) {
+                drawGraph(index + 1, true); // index + 1 は日付を意味します
+            }
+        });
+    }
 };
 
