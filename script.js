@@ -465,7 +465,7 @@ function deleteRecord() {
         urinationTimes: [],
         totalUrinationCount: 0,
         nightUrinationCount: 0,
-        drinking: '無'
+        drinking: ''
     };
 
     // ローカルストレージの更新
