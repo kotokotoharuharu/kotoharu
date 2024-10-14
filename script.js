@@ -455,8 +455,18 @@ function deleteRecord() {
     const confirmation = confirm(`${currentDay}日目の記録を削除しますか？`);
     if (!confirmation) return;
 
-    // データを削除（既に存在するデータを削除）
-    records[currentDay - 1] = null;
+    // 該当日のデータを削除
+    records[currentDay - 1] = {
+        date: '',
+        sleepTime: '',
+        wakeTime: '',
+        napTimes: [],
+        exerciseTimes: [],
+        urinationTimes: [],
+        totalUrinationCount: 0,
+        nightUrinationCount: 0,
+        drinking: '無'
+    };
 
     // ローカルストレージの更新
     localStorage.setItem('records', JSON.stringify(records));
