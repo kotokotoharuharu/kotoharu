@@ -158,10 +158,10 @@ canvas {
     color: #555;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 300px) {
     #bottom-right-photo {
-        width: 80px;  /* スマホサイズでは小さめに */
-        right: 10px;  /* 右の余白を少なく */
-        bottom: 10px; /* 下の余白を少なく */
+        width: 100px;  /* スマホサイズでは小さめに */
+        right: 1px;  /* 右の余白を少なく */
+        bottom: 1px; /* 下の余白を少なく */
     }
 }
