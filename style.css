@@ -157,3 +157,11 @@ canvas {
     background-color: #E6A1C0;
     color: #555;
 }
+
+@media (max-width: 600px) {
+    #bottom-right-photo {
+        width: 80px;  /* スマホサイズでは小さめに */
+        right: 10px;  /* 右の余白を少なく */
+        bottom: 10px; /* 下の余白を少なく */
+    }
+}
