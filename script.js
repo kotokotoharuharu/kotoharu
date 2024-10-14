@@ -469,3 +469,24 @@ function deleteRecord() {
     // 指定日付のデータを初期化するために goToDay 関数を呼び出し
     goToDay(currentDay);
 }
+function updateButtonColors() {
+    // ローカルストレージからデータを取得
+    const records = JSON.parse(localStorage.getItem('records')) || [];
+
+    records.forEach((record, index) => {
+        const dayButton = document.getElementById(`day-button-${index + 1}`);
+        
+        // 記録が存在するかを確認
+        if (record && record.date) {
+            dayButton.style.backgroundColor = 'gray';
+        } else {
+            dayButton.style.backgroundColor = '#45a049';
+        }
+    });
+}
+
+// ページロード時にボタンの色を更新
+window.onload = function() {
+    updateButtonColors();
+};
+
