@@ -158,9 +158,9 @@ canvas {
     color: #555;
 }
 
-@media (max-width: 300px) {
+@media (max-width: 200px) {
     #bottom-right-photo {
-        width: 100px;  /* スマホサイズでは小さめに */
+        width: 50px;  /* スマホサイズでは小さめに */
         right: 1px;  /* 右の余白を少なく */
         bottom: 1px; /* 下の余白を少なく */
     }
