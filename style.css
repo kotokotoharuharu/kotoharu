@@ -14,18 +14,18 @@ h1 {
   color: #22ac38;
   border-radius: 0 15px 15px 15px;
   background: #e3f5d8;
-   font-size: 45px; /* フォントサイズを3remに設定 */
+   font-size: 50px; /* フォントサイズを3remに設定 */
 }
 
 h1:before {
-  font-size: 45px;
+  font-size: 50px;
   font-size: 1rem;
   position: absolute;
   top: -20px;
   left: 0;
   height: 20px;
   padding: 0 1em;
-  content: 'Challenge';
+  content: '7days Challenge';
   color: #fff;
   border-radius: 30px 30px 0 0;
   background: #22ac38;
@@ -266,4 +266,21 @@ h2 {
     font-size: 2rem; /* ここでフォントサイズを設定 */
     color: blue; /* ここで文字色を設定（例: オレンジ色） */
 }
+
+/* 入力フィールドの大きさを設定 */
+.nap-start-time, .nap-end-time, .exercise-start-time, .exercise-end-time {
+    font-size: 1.8em;  /* 文字サイズ */
+    padding: 10px;  /* 内側の余白 */
+    width: 30%;  /* フィールドの幅を100%に設定 */
+    margin: 5px 0;  /* 上下の間隔 */
+    box-sizing: border-box;  /* 幅にパディングとボーダーを含む */
+}
+
+/* ラベルの大きさを設定 */
+#nap-times label, #exercise-times label {
+    font-size: 1.8em;  /* 文字サイズ */
+    display: block;  /* 各ラベルをブロック表示にして幅100%を適用 */
+    margin-top: 10px;  /* 上の間隔 */
+}
+
 
