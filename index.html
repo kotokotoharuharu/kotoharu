@@ -5,6 +5,7 @@
     <title>生活スタイル記録アプリ</title>
     <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
     
     <div id="top-page">
@@ -32,7 +33,7 @@
     <h1>はじめに</h1>
     <ul>
         <li class="large-text">生活改善、、、した方が良いのだろうけどどうしてもできない(*´Д｀)</li>
-        <li class="large-text">どこから手を付けてよいのかわからないためにこのような困りごとが起こるといわれています。決してあなたが悪いわけではありません( ｀ー´)ノ</li>
+        <li class="large-text">どこから手を付けてよいのかわからないためにこのような困りごとが起こるといわれています</li>
         <li class="large-text">このような場合、まずはご自身の生活スタイルを知り何から改善していくか優先順位をつけることが大事になります</li>
         <li class="large-text">本アプリを使って自身の生活スタイルを振り返り、変えたいと思う行動から変えていきましょう(^^♪</li>
        
@@ -45,34 +46,35 @@
         <h1>ガイド</h1>
         <ul>
             <li class="large-text">これは7日間の睡眠、運動、昼寝、排尿を記録し、生活スタイルを把握するアプリです</li>
-	        <li class="large-text">携帯で使う場合は、chromeで開いて画面右上の•••が縦に並んでいるボタンを押し、「ホーム画面に追加」を押して下さい。これにより毎日の記録が簡単にできるようになります</li>
+	        <li class="large-text">Androidで使う場合は、chromeで開いて画面右上の•••が縦に並んでいるボタンを押し、「ホーム画面に追加」を押して下さい。これにより毎日の記録が簡単にできるようになります</li>
 	        <li class="large-text">Lineで開いた場合は•••が縦に並んでいるボタンを押し、「デフォルトのブラウザで開く」を押した後上記対応をしてください</li>
-            <li class="large-text">「1日目の記録」ボタンから入力を開始してください</li>
+            <li class="large-text">「Day1」ボタンから入力を開始してください</li>
             <li class="large-text">日付を選択後、前日の入眠時間を起点に入力を開始してください。飲酒の有無も前日分を記載しください</li>
             <li class="large-text">昼寝や運動を実施していない日は空欄にして下さい。複数回行った日は、追加ボタンを押してすべて記入してください</li>
             <li class="large-text">入力時間は大まかで構いません。特に夜間頻尿時間は感覚で記載していただいて構いません</li>
             <li class="large-text">入力のたびに「記録終了」ボタンを押してください。運動時刻は開始と終了を同時に入れないと保存できませんのでご注意ください</li>
-            <li class="large-text">Topページの集計ボタンを押すと生活の記録がグラフで表示されます。ご自身の生活スタイルを振り返り、例えば運動が少なかったら運動してみるとか、毎晩飲酒しているなら減らしてみるとか行動変容のきっかけになればと思います
+            <li class="large-text">Topページの「グラフ」を押すと生活の記録がグラフで表示されます。ご自身の生活スタイルを振り返り、例えば運動が少なかったら運動してみるとか、毎晩飲酒しているなら減らしてみるとか行動変容のきっかけになればと思います
             <li class="large-text">なお、ここで記録したデータはご本人しか確認することはできませんので安心してお使いください</li>
         </ul>
         <button onclick="goToTopPage()">戻る</button>
 　　</div>
 
-    <div id="record-page" style="display: none;">
-        <h2 id="day-title">日付選択</h2>
-        <label for="date-picker">記録日:</label>
-        <input type="date" id="date-picker">
-       
-    <div class="time-input-group">
-        <label for="sleep-time">入眠時刻:</label>
-        <input id="sleep-time" type="time">
+   <div id="record-page" style="display: none;">
+    <h2 id="day-title" style="font-size: 1.8em;">日付選択</h2>
+    <label for="date-picker" style="font-size: 1.8em;">記録日:</label>
+    <input type="date" id="date-picker" style="width: 30%; height: 2.2em; font-size: 1.8em;">
+   
+    <div class="time-input-group" style="margin-top: 10px;">
+        <label for="sleep-time" style="font-size: 1.8em;">入眠時刻:</label>
+        <input id="sleep-time" type="time" style="width: 30%; height: 2.2em; font-size: 1.8em;">
     </div>
     
-    <div class="time-input-group">
-         <label for="wake-time">起床時刻:</label>
-          <input id="wake-time" type="time">
-        
+    <div class="time-input-group" style="margin-top: 10px;">
+        <label for="wake-time" style="font-size: 1.8em;">起床時刻:</label>
+        <input id="wake-time" type="time" style="width: 30%; height: 2.2em; font-size: 1.8em;">
     </div>
+
+
 
     <!-- 昼寝の時間帯入力フィールド -->
     <div id="nap-times">
@@ -81,6 +83,7 @@
             <label>昼寝終了時刻:</label>
             <input type="time" class="nap-end-time">
     </div>
+    
     <button onclick="addNapTime()">昼寝時間を追加</button>
         
         <!-- 運動の時間帯入力フィールド -->
@@ -91,46 +94,116 @@
             <input type="time" class="exercise-end-time">
         </div>
         <button onclick="addExerciseTime()">運動時間を追加</button>
-        
-      <!-- 排尿時間帯入力フィールド -->
-      <div id="urination-times">
-            <label>排尿時刻:</label>
-            <div id="urination-buttons" class="button-grid"></div>
-        </div>
-        
+           
+         <div id="urination-times" style="margin-top: 20px;">
+    <label style="font-size: 1.8em;">排尿時刻:</label>
+    <div id="urination-buttons" class="button-grid" style="margin-top: 10px;"></div>
+</div>
+
+<style>
+    .button-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
+
+    .urination-button {
+        font-size: 2em;
+        padding: 15px;
+        width: 100%;
+        box-sizing: border-box;
+        border: none;
+        border-radius: 12px;
+        background-color: #45a049;
+        color: #333;
+        cursor: pointer;
+        transition: transform 0.2s ease, background-color 0.3s ease;
+    }
+
+    .urination-button:hover {
+        transform: scale(1.1);
+        background-color: #ff99cc;
+    }
+
+
+
+    .urination-button.selected {
+        background-color: gray;
+        color: black;
+        animation: pulse 0.6s infinite alternate;
+    }
+
+    
+</style>
+
+
     
         
-        <div id="drinking-section">
-            <label>飲酒:</label>
-            <button id="drink-yes" class="drinking-button" onclick="toggleDrinking('有')">有</button>
-            <button id="drink-no" class="drinking-button" onclick="toggleDrinking('無')">無</button>
-        </div>
-        
-    <div id="medication-buttons">
-         <label>服薬:</label>
-       <!-- 服薬の各ボタン -->
-            <button id="medication-hypertension" class="medication-button" onclick="toggleMedication('hypertension')">高血圧</button>
-            <button id="medication-hyperlipidemia" class="medication-button" onclick="toggleMedication('hyperlipidemia')">高脂血症</button>
-            <button id="medication-hypnotics" class="medication-button" onclick="toggleMedication('hyonotics')">睡眠薬</button>
-            <button id="medication-allergy" class="medication-button" onclick="toggleMedication('allergy')">アレルギー</button>
-            <button id="medication-other" class="medication-button" onclick="toggleMedication('other')">その他</button>
-    </div>
+  <div id="drinking-section" style="margin-top: 20px;">
+    <label style="font-size: 1.8em;">飲酒:</label>
+    <button id="drink-yes" class="drinking-button" onclick="toggleDrinking('有')">有</button>
+    <button id="drink-no" class="drinking-button" onclick="toggleDrinking('無')">無</button>
+</div>
 
-        
-    <div id="error-message" class="error"></div>
-            <button onclick="saveRecord()">記録終了</button>
-             <button onclick="deleteRecord()">記録削除</button> <!-- 削除ボタン -->
-             <button onclick="goToTopPage()">戻る</button>
-    </div>
+<div id="medication-buttons" style="margin-top: 20px;">
+    <label style="font-size: 1.8em;">服薬:</label>
+    <button id="medication-hypertension" class="medication-button" onclick="toggleMedication('hypertension')">高血圧</button>
+    <button id="medication-hyperlipidemia" class="medication-button" onclick="toggleMedication('hyperlipidemia')">高脂血症</button>
+    <button id="medication-hypnotics" class="medication-button" onclick="toggleMedication('hypnotics')">睡眠薬</button>
+    <button id="medication-allergy" class="medication-button" onclick="toggleMedication('allergy')">アレルギー</button>
+    <button id="medication-other" class="medication-button" onclick="toggleMedication('other')">その他</button>
+</div>
+
+<div id="error-message" class="error" style="margin-top: 20px;"></div>
+<button onclick="saveRecord()" class="action-button">記録終了</button>
+<button onclick="deleteRecord()" class="action-button">記録削除</button>
+<button onclick="goToTopPage()" class="action-button">戻る</button>
+</div>
+
+<style>
+    /* 共通のボタンスタイル */
+    .drinking-button, .medication-button, .action-button {
+        font-size: 1.8em;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 12px;
+        background-color: #4CAF50; /* 緑色 */
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .drinking-button:hover, .medication-button:hover, .action-button:hover {
+        background-color: #45a049; /* 少し濃い緑色 */
+        transform: scale(1.05);
+    }
+
+    .drinking-button:active, .medication-button:active, .action-button:active {
+        transform: scale(0.95);
+    }
+
+    /* 服薬ボタンの追加の調整 */
+    .medication-button {
+        margin: 5px 2px;
+    }
+
+    /* アクションボタンの追加の調整 */
+    .action-button {
+        margin: 10px 5px;
+    }
+</style>
+
 
 
     <div id="aggregate-page" style="display: none;">
-        <h2>一週間の集計</h2>
+        <h2>集計</h2>
         <ul class="large-text">入力開始日および排尿時刻をラフに入力している都合上、入眠直後や起床時の排尿が夜間排尿とカウントされることがあります</ul>
+        <ul>24時間の円グラフに赤丸で排尿時間をプロットしています。黄色ラインが睡眠時間、青ラインが昼寝時間およびピンクラインが運動時間です。グラフを見てご自身の生活スタイルを振り返ってみてください</ul>
         <div id="all-graphs"></div>
         <button onclick="goToTopPage()">戻る</button>
     </div>
 
     <script src="script.js"></script>
+    
 </body>
 </html>
