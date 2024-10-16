@@ -27,6 +27,7 @@ function goToDay(day) {
             date: '',
             sleepTime: '',
             wakeTime: '',
+            totalSleepTime: '',
             napTimes: [],
             exerciseTimes: [],
             urinationTimes: [],
@@ -37,7 +38,7 @@ function goToDay(day) {
     const record = records[currentDay - 1];
 
     // 画面のタイトルを日付に合わせる
-    document.getElementById('day-title').textContent = `${day}日目の記録`;
+    document.getElementById('day-title').textContent = `${day}日目`;
     document.getElementById('top-page').style.display = 'none';
     document.getElementById('record-page').style.display = 'block';
     
@@ -47,39 +48,30 @@ function goToDay(day) {
 
       
     // 排尿時刻ボタンを生成し、選択状態を復元
-    const urinationButtonsDiv = document.getElementById('urination-buttons');
-    urinationButtonsDiv.innerHTML = '';
-    for (let i = 0; i < 24; i++) {
-        const button = document.createElement('button');
-        button.className = 'urination-button';
-        button.textContent = `${i}:00-`;
-        button.onclick = () => toggleUrinationTime(i);
+const urinationButtonsDiv = document.getElementById('urination-buttons');
+urinationButtonsDiv.innerHTML = '';
 
-     // ここで選択された排尿時刻を復元
-        if (record.urinationTimes.includes(`${String(i).padStart(2, '0')}:30`)) {
-            button.classList.add('selected');
-            selectedUrinationTimes.add(i); // Set に追加して状態を保持
-        }
+for (let i = 0; i < 24; i++) {
+    const button = document.createElement('button');
+    button.className = 'urination-button';
+    button.textContent = `${i}:00-`;
+    button.onclick = () => toggleUrinationTime(i);
 
-        urinationButtonsDiv.appendChild(button);
+    // 選択された排尿時刻を復元
+    if (record.urinationTimes.includes(`${String(i).padStart(2, '0')}:30`)) {
+        button.classList.add('selected');
+        selectedUrinationTimes.add(i);
     }
 
- // 他のデータの初期化または表示
-    document.getElementById('date-picker').value = record.date || '';
-    document.getElementById('sleep-time').value = record.sleepTime || '';
-    document.getElementById('wake-time').value = record.wakeTime || '';
-    // 飲酒状態の設定
+    urinationButtonsDiv.appendChild(button);
+}
+
+
+
     toggleDrinking(record.drinking);
    
-   
-    // 既存の記録から選択された排尿時刻を復元する
-    if (record && record.urinationTimes) {
-        record.urinationTimes.forEach(hour => {
-            // 時刻の整形が必要な場合は行う
-            const hourInt = parseInt(hour.split(':')[0], 10);
-            selectedUrinationTimes.add(hourInt);
-        });
-    }
+
+    
 // その他のデータの初期化または表示
     document.getElementById('date-picker').value = record.date;
     document.getElementById('sleep-time').value = record.sleepTime;
@@ -111,9 +103,14 @@ function goToDay(day) {
         const exerciseTimesDiv = document.getElementById('exercise-times');
         exerciseTimesDiv.innerHTML = '';
         addExerciseTime();
-
-    
     }
+     // Initialize fields
+    document.getElementById('date-picker').value = record.date || '';
+    document.getElementById('sleep-time').value = record.sleepTime || '';
+    document.getElementById('wake-time').value = record.wakeTime || '';
+
+    calculateTotalSleepTime(); // 総睡眠時間の初期計算を呼び出す
+
 }
 
 function toggleUrinationTime(hour) {
@@ -162,7 +159,9 @@ function saveRecord() {
     if (dayButton) {
         dayButton.style.backgroundColor = 'gray';
     }
-
+    
+    records[currentDay - 1].totalSleepTime = document.getElementById('total-sleep-time').textContent;
+    
     drawGraph(currentDay); // グラフを描写
     goToTopPage(); // トップページに戻る
         
@@ -305,6 +304,8 @@ function drawGraph(day, aggregate = false) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     ctx.beginPath();
+    // メイン円グラフの太さを設定
+    ctx.lineWidth = 3; 
     ctx.arc(200, 200, 150, 0, 2 * Math.PI);
     ctx.stroke();
 
@@ -313,7 +314,7 @@ function drawGraph(day, aggregate = false) {
 
     ctx.beginPath();
     ctx.strokeStyle = 'yellow';
-    ctx.lineWidth = 8;
+    ctx.lineWidth = 12;
     ctx.arc(200, 200, 150, sleepAngle, wakeAngle);
     ctx.stroke();
     
@@ -326,7 +327,7 @@ function drawGraph(day, aggregate = false) {
         
         ctx.beginPath();
         ctx.strokeStyle = 'blue';
-        ctx.lineWidth = 8;
+        ctx.lineWidth = 12;
         ctx.arc(200, 200, 150, napStartAngle, napEndAngle);
         ctx.stroke();
     });
@@ -338,7 +339,7 @@ function drawGraph(day, aggregate = false) {
         
         ctx.beginPath();
         ctx.strokeStyle = 'pink';
-        ctx.lineWidth = 8;
+        ctx.lineWidth = 12;
         ctx.arc(200, 200, 150, exerciseStartAngle, exerciseEndAngle);
         ctx.stroke();
     });
@@ -351,7 +352,7 @@ function drawGraph(day, aggregate = false) {
         const x = 200 + 150 * Math.cos(angle);
         const y = 200 + 150 * Math.sin(angle);
         ctx.beginPath();
-        ctx.arc(x, y, 5, 0, 2 * Math.PI);
+        ctx.arc(x, y, 8, 0, 2 * Math.PI);
         ctx.fill();
     });
 
@@ -369,15 +370,13 @@ function drawGraph(day, aggregate = false) {
     ctx.textAlign = 'center';
     ctx.fillText(`${record.date}`, 200, 120);
     ctx.fillText(``, 200, 140);
-    ctx.fillText(`入眠: ${record.sleepTime}`, 200, 160);
-    ctx.fillText(`起床: ${record.wakeTime}`, 200, 180);
-    ctx.fillText(`総排尿回数: ${record.totalUrinationCount}`, 200, 200);
-    ctx.fillText(`夜間排尿回数: ${record.nightUrinationCount}`, 200, 220);
-    ctx.fillText(`飲酒の有無: ${record.drinking}`, 200, 240); // 飲酒の有無を表示
-    ctx.fillText(``, 200, 260);
-    ctx.fillText(`黄:睡眠時間`, 200, 280);
-    ctx.fillText(`青:昼寝時間`, 200, 300);
-    ctx.fillText(`ピンク:運動時間`, 200, 320);
+ 
+    ctx.fillText(`入眠: ${record.sleepTime}`, 200, 180);
+    ctx.fillText(`起床: ${record.wakeTime}`, 200, 200);
+    ctx.fillText(`総排尿回数: ${record.totalUrinationCount}`, 200, 220);
+    ctx.fillText(`夜間排尿回数: ${record.nightUrinationCount}`, 200, 240);
+    ctx.fillText(`飲酒: ${record.drinking}`, 200, 260); // 飲酒の有無を表示
+   
 }
 
 function timeToAngle(timeStr) {
@@ -450,6 +449,26 @@ function toggleMedication(medicationType) {
     if (button) {
         // .selectedクラスの追加・削除
         button.classList.toggle("selected");
+    }
+}
+function calculateTotalSleepTime() {
+    const sleepTime = document.getElementById('sleep-time').value;
+    const wakeTime = document.getElementById('wake-time').value;
+
+    if (sleepTime && wakeTime) {
+        const sleepMinutes = timeToMinutes(sleepTime);
+        const wakeMinutes = timeToMinutes(wakeTime);
+        const totalMinutes = (wakeMinutes > sleepMinutes)
+            ? wakeMinutes - sleepMinutes
+            : 1440 - sleepMinutes + wakeMinutes;
+
+        const hours = Math.floor(totalMinutes / 60);
+        const minutes = totalMinutes % 60;
+        const totalSleepTime = `${hours}時間${minutes}分`;
+
+        document.getElementById('total-sleep-time').textContent = `総睡眠時間: ${totalSleepTime}`;
+        records[currentDay - 1].totalSleepTime = totalSleepTime; // データ保存用
+        localStorage.setItem('records', JSON.stringify(records)); // ローカルストレージに保存
     }
 }
 function deleteRecord() {
