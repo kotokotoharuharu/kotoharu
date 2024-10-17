@@ -155,7 +155,7 @@ canvas {
 }
 
 .drinking-button.selected {
-    background-color: #E6A1C0;
+    background-color: #ff99cc;
     color: #555;
 }
 
@@ -168,7 +168,7 @@ canvas {
 }
 
 .medication-button.selected {
-    background-color: #E6A1C0;
+    background-color: #ff99cc;
     color: #555;
 }
 
