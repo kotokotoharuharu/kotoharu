@@ -7,20 +7,20 @@ window.onload = () => {
     const storedRecords = localStorage.getItem('records');
     if (storedRecords) {
         records = JSON.parse(storedRecords);
-        
+
     }
 };
 
 function goToDay(day) {
     currentDay = day;
-    
+
     // ローカルストレージからデータを読み込み
     const storedRecords = localStorage.getItem('records');
     if (storedRecords) {
         records = JSON.parse(storedRecords);
     }
-    
-    
+
+
     // 現在の日付の記録がない場合は初期化
     if (!records[currentDay - 1]) {
         records[currentDay - 1] = {
@@ -32,7 +32,7 @@ function goToDay(day) {
             exerciseTimes: [],
             urinationTimes: [],
             drinking: '',
-            medications:  []// 服薬情報を保存
+            medications: [] // 服薬情報を保存
         };
     }
     const record = records[currentDay - 1];
@@ -41,70 +41,70 @@ function goToDay(day) {
     document.getElementById('day-title').textContent = `${day}日目`;
     document.getElementById('top-page').style.display = 'none';
     document.getElementById('record-page').style.display = 'block';
-    
-    
+
+
     // 選択された排尿時刻のセットをクリア
-      selectedUrinationTimes.clear();
+    selectedUrinationTimes.clear();
 
-      
+
     // 排尿時刻ボタンを生成し、選択状態を復元
-const urinationButtonsDiv = document.getElementById('urination-buttons');
-urinationButtonsDiv.innerHTML = '';
+    const urinationButtonsDiv = document.getElementById('urination-buttons');
+    urinationButtonsDiv.innerHTML = '';
 
-for (let i = 0; i < 24; i++) {
-    const button = document.createElement('button');
-    button.className = 'urination-button';
-    button.textContent = `${i}:00-`;
-    button.onclick = () => toggleUrinationTime(i);
+    for (let i = 0; i < 24; i++) {
+        const button = document.createElement('button');
+        button.className = 'urination-button';
+        button.textContent = `${i}:00-`;
+        button.onclick = () => toggleUrinationTime(i);
 
-    // 選択された排尿時刻を復元
-    if (record.urinationTimes.includes(`${String(i).padStart(2, '0')}:30`)) {
-        button.classList.add('selected');
-        selectedUrinationTimes.add(i);
+        // 選択された排尿時刻を復元
+        if (record.urinationTimes.includes(`${String(i).padStart(2, '0')}:30`)) {
+            button.classList.add('selected');
+            selectedUrinationTimes.add(i);
+        }
+
+        urinationButtonsDiv.appendChild(button);
     }
-
-    urinationButtonsDiv.appendChild(button);
-}
 
 
 
     toggleDrinking(record.drinking);
-   
 
-    
-// その他のデータの初期化または表示
+
+
+    // その他のデータの初期化または表示
     document.getElementById('date-picker').value = record.date;
     document.getElementById('sleep-time').value = record.sleepTime;
     document.getElementById('wake-time').value = record.wakeTime;
-    for (let i = 0; i < 24; i++) 
+    for (let i = 0; i < 24; i++)
 
-    // 他の入力フィールドの値を設定
-    if (record) {
-        document.getElementById('date-picker').value = record.date || '';
-        document.getElementById('sleep-time').value = record.sleepTime || '';
-        document.getElementById('wake-time').value = record.wakeTime || '';
+        // 他の入力フィールドの値を設定
+        if (record) {
+            document.getElementById('date-picker').value = record.date || '';
+            document.getElementById('sleep-time').value = record.sleepTime || '';
+            document.getElementById('wake-time').value = record.wakeTime || '';
 
-        const napTimesDiv = document.getElementById('nap-times');
-        napTimesDiv.innerHTML = '';
-        record.napTimes.forEach(nap => addNapTime(nap.start, nap.end));
+            const napTimesDiv = document.getElementById('nap-times');
+            napTimesDiv.innerHTML = '';
+            record.napTimes.forEach(nap => addNapTime(nap.start, nap.end));
 
-        const exerciseTimesDiv = document.getElementById('exercise-times');
-        exerciseTimesDiv.innerHTML = '';
-        record.exerciseTimes.forEach(exercise => addExerciseTime(exercise.start, exercise.end));
-    } else {
-        document.getElementById('date-picker').value = '';
-        document.getElementById('sleep-time').value = '';
-        document.getElementById('wake-time').value = '';
-        
-        const napTimesDiv = document.getElementById('nap-times');
-        napTimesDiv.innerHTML = '';
-        addNapTime();
+            const exerciseTimesDiv = document.getElementById('exercise-times');
+            exerciseTimesDiv.innerHTML = '';
+            record.exerciseTimes.forEach(exercise => addExerciseTime(exercise.start, exercise.end));
+        } else {
+            document.getElementById('date-picker').value = '';
+            document.getElementById('sleep-time').value = '';
+            document.getElementById('wake-time').value = '';
 
-        const exerciseTimesDiv = document.getElementById('exercise-times');
-        exerciseTimesDiv.innerHTML = '';
-        addExerciseTime();
-    }
-     // Initialize fields
+            const napTimesDiv = document.getElementById('nap-times');
+            napTimesDiv.innerHTML = '';
+            addNapTime();
+
+            const exerciseTimesDiv = document.getElementById('exercise-times');
+            exerciseTimesDiv.innerHTML = '';
+            addExerciseTime();
+        }
+    // Initialize fields
     document.getElementById('date-picker').value = record.date || '';
     document.getElementById('sleep-time').value = record.sleepTime || '';
     document.getElementById('wake-time').value = record.wakeTime || '';
@@ -131,7 +131,7 @@ function saveRecord() {
     const date = document.getElementById('date-picker').value;
     const sleepTime = document.getElementById('sleep-time').value;
     const wakeTime = document.getElementById('wake-time').value;
-    const drinking = records[currentDay - 1].drinking || '無';  // `toggleDrinking()`で更新済み
+    const drinking = records[currentDay - 1].drinking || '無'; // `toggleDrinking()`で更新済み
     const urinationTimes = Array.from(selectedUrinationTimes).map(hour => {
         // 時間を「:30」に変換
         return `${String(hour).padStart(2, '0')}:30`;
@@ -144,7 +144,7 @@ function saveRecord() {
     const napTimes = [];
     const napStartTimes = document.querySelectorAll('.nap-start-time');
     const napEndTimes = document.querySelectorAll('.nap-end-time');
-    
+
     for (let i = 0; i < napStartTimes.length; i++) {
         if (napStartTimes[i].value && napEndTimes[i].value) {
             napTimes.push({
@@ -152,39 +152,40 @@ function saveRecord() {
                 end: napEndTimes[i].value
             });
         }
-    localStorage.setItem('records', JSON.stringify(records));
+        localStorage.setItem('records', JSON.stringify(records));
 
-    // 現在の日のボタンの色を変更
-    const dayButton = document.getElementById(`day-button-${currentDay}`);
-    if (dayButton) {
-        dayButton.style.backgroundColor = 'gray';
-    }
-    
-    records[currentDay - 1].totalSleepTime = document.getElementById('total-sleep-time').textContent;
-    
-    drawGraph(currentDay); // グラフを描写
-    goToTopPage(); // トップページに戻る
-        
-        
-        
-    }
-function isInNightPeriod(sleepTime, wakeTime, time) {
-    const sleepMinutes = timeToMinutes(sleepTime);
-    const wakeMinutes = timeToMinutes(wakeTime);
-    const urinationMinutes = timeToMinutes(time);
+        // 現在の日のボタンの色を変更
+        const dayButton = document.getElementById(`day-button-${currentDay}`);
+        if (dayButton) {
+            dayButton.style.backgroundColor = 'gray';
+        }
 
-    // 睡眠時間が日をまたぐ場合
-    if (sleepMinutes > wakeMinutes) {
-        return urinationMinutes >= sleepMinutes || urinationMinutes < wakeMinutes;
-    } else {
-        return urinationMinutes >= sleepMinutes && urinationMinutes < wakeMinutes;
-    }
-}
+        records[currentDay - 1].totalSleepTime = document.getElementById('total-sleep-time').textContent;
 
-function timeToMinutes(timeStr) {
-    const [hours, minutes] = timeStr.split(':').map(Number);
-    return hours * 60 + minutes;
-}
+        drawGraph(currentDay); // グラフを描写
+        goToTopPage(); // トップページに戻る
+
+
+
+    }
+
+    function isInNightPeriod(sleepTime, wakeTime, time) {
+        const sleepMinutes = timeToMinutes(sleepTime);
+        const wakeMinutes = timeToMinutes(wakeTime);
+        const urinationMinutes = timeToMinutes(time);
+
+        // 睡眠時間が日をまたぐ場合
+        if (sleepMinutes > wakeMinutes) {
+            return urinationMinutes >= sleepMinutes || urinationMinutes < wakeMinutes;
+        } else {
+            return urinationMinutes >= sleepMinutes && urinationMinutes < wakeMinutes;
+        }
+    }
+
+    function timeToMinutes(timeStr) {
+        const [hours, minutes] = timeStr.split(':').map(Number);
+        return hours * 60 + minutes;
+    }
 
     // 運動時間の取得
     const exerciseTimes = [];
@@ -218,7 +219,7 @@ function timeToMinutes(timeStr) {
     localStorage.setItem('records', JSON.stringify(records));
 
 
-// ボタンの色を灰色に変更
+    // ボタンの色を灰色に変更
     const dayButton = document.getElementById(`day-button-${currentDay}`);
     if (dayButton) {
         dayButton.style.backgroundColor = 'gray';
@@ -305,7 +306,7 @@ function drawGraph(day, aggregate = false) {
 
     ctx.beginPath();
     // メイン円グラフの太さを設定
-    ctx.lineWidth = 3; 
+    ctx.lineWidth = 3;
     ctx.arc(200, 200, 150, 0, 2 * Math.PI);
     ctx.stroke();
 
@@ -317,14 +318,14 @@ function drawGraph(day, aggregate = false) {
     ctx.lineWidth = 12;
     ctx.arc(200, 200, 150, sleepAngle, wakeAngle);
     ctx.stroke();
-    
-   
-    
+
+
+
     // 複数の昼寝時間を描画
     record.napTimes.forEach(nap => {
         const napStartAngle = timeToAngle(nap.start);
         const napEndAngle = timeToAngle(nap.end);
-        
+
         ctx.beginPath();
         ctx.strokeStyle = 'blue';
         ctx.lineWidth = 12;
@@ -336,7 +337,7 @@ function drawGraph(day, aggregate = false) {
     record.exerciseTimes.forEach(exercise => {
         const exerciseStartAngle = timeToAngle(exercise.start);
         const exerciseEndAngle = timeToAngle(exercise.end);
-        
+
         ctx.beginPath();
         ctx.strokeStyle = 'pink';
         ctx.lineWidth = 12;
@@ -370,13 +371,13 @@ function drawGraph(day, aggregate = false) {
     ctx.textAlign = 'center';
     ctx.fillText(`${record.date}`, 200, 120);
     ctx.fillText(``, 200, 140);
- 
+
     ctx.fillText(`入眠: ${record.sleepTime}`, 200, 180);
     ctx.fillText(`起床: ${record.wakeTime}`, 200, 200);
     ctx.fillText(`総排尿回数: ${record.totalUrinationCount}`, 200, 220);
     ctx.fillText(`夜間排尿回数: ${record.nightUrinationCount}`, 200, 240);
     ctx.fillText(`飲酒: ${record.drinking}`, 200, 260); // 飲酒の有無を表示
-   
+
 }
 
 function timeToAngle(timeStr) {
@@ -386,9 +387,7 @@ function timeToAngle(timeStr) {
     return angle;
 }
 
-function isInNightPeriod(sleepTime, wakeTime, time) {
-    return time >= sleepTime || time <= wakeTime;
-}
+
 
 function goToTopPage() {
     document.getElementById('record-page').style.display = 'none';
@@ -412,6 +411,7 @@ function showGuidePage() {
     document.getElementById('aggregate-page').style.display = 'none';
     document.getElementById('guide-page').style.display = 'block';
 }
+
 function addUrinationTime() {
     const urinationTimesDiv = document.getElementById('urination-times');
     const newTimeInput = document.createElement('input');
@@ -429,13 +429,13 @@ function toggleDrinking(status) {
         const selectedButton = document.getElementById(`drink-${status === '有' ? 'yes' : 'no'}`);
         selectedButton.classList.add('selected');
     }
-    
+
     // 飲酒状態を記録に保存
     if (!records[currentDay - 1]) {
         records[currentDay - 1] = {};
     }
     records[currentDay - 1].drinking = status || ''; // 初期状態は空文字列
-    
+
     // ローカルストレージに更新内容を保存
     localStorage.setItem('records', JSON.stringify(records));
 }
@@ -443,14 +443,21 @@ function toggleDrinking(status) {
 let selectedMedications = new Set();
 
 // 服薬ボタンの選択状態を切り替える
-function toggleMedication(medicationType) {
-    // 該当のボタンを取得
-    const button = document.querySelector(`#medication-${medicationType}`);
-    if (button) {
-        // .selectedクラスの追加・削除
-        button.classList.toggle("selected");
+function toggleMedication(medication) {
+    // 選択された薬の存在を確認して、selectedMedicationsを更新
+    const index = selectedMedications.indexOf(medication);
+    if (index > -1) {
+        // 既に選択されている場合、削除
+        selectedMedications.splice(index, 1);
+    } else {
+        // 選択されていない場合、追加
+        selectedMedications.push(medication);
     }
+
+    // ローカルストレージに保存する
+    localStorage.setItem('selectedMedications', JSON.stringify(selectedMedications));
 }
+
 function calculateTotalSleepTime() {
     const sleepTime = document.getElementById('sleep-time').value;
     const wakeTime = document.getElementById('wake-time').value;
@@ -458,9 +465,9 @@ function calculateTotalSleepTime() {
     if (sleepTime && wakeTime) {
         const sleepMinutes = timeToMinutes(sleepTime);
         const wakeMinutes = timeToMinutes(wakeTime);
-        const totalMinutes = (wakeMinutes > sleepMinutes)
-            ? wakeMinutes - sleepMinutes
-            : 1440 - sleepMinutes + wakeMinutes;
+        const totalMinutes = (wakeMinutes > sleepMinutes) ?
+            wakeMinutes - sleepMinutes :
+            1440 - sleepMinutes + wakeMinutes;
 
         const hours = Math.floor(totalMinutes / 60);
         const minutes = totalMinutes % 60;
@@ -471,6 +478,7 @@ function calculateTotalSleepTime() {
         localStorage.setItem('records', JSON.stringify(records)); // ローカルストレージに保存
     }
 }
+
 function deleteRecord() {
     const confirmation = confirm(`${currentDay}日目の記録を削除しますか？`);
     if (!confirmation) return;
@@ -491,7 +499,7 @@ function deleteRecord() {
     // ローカルストレージの更新
     localStorage.setItem('records', JSON.stringify(records));
 
-// ボタンの色を緑に変更
+    // ボタンの色を緑に変更
     const dayButton = document.getElementById(`day-button-${currentDay}`);
     if (dayButton) {
         dayButton.style.backgroundColor = '#4CAF50';
@@ -499,13 +507,14 @@ function deleteRecord() {
     // 指定日付のデータを初期化するために goToDay 関数を呼び出し
     goToDay(currentDay);
 }
+
 function updateButtonColors() {
     // ローカルストレージからデータを取得
     const records = JSON.parse(localStorage.getItem('records')) || [];
 
     records.forEach((record, index) => {
         const dayButton = document.getElementById(`day-button-${index + 1}`);
-        
+
         // 記録が存在するかを確認
         if (record && record.date) {
             dayButton.style.backgroundColor = 'gray';
@@ -514,6 +523,25 @@ function updateButtonColors() {
         }
     });
 }
+document.addEventListener("DOMContentLoaded", function() {
+    const text = "日々の記録";
+    const h1Element = document.getElementById("typingText");
+    let index = 0;
+
+    function typeText() {
+        if (index < text.length) {
+            h1Element.textContent += text.charAt(index);
+            index++;
+            setTimeout(typeText, 150); // 150msごとに1文字追加
+        } else {
+            h1Element.classList.remove("typing");
+        }
+    }
+
+    h1Element.textContent = ''; // 初期化しておく
+    h1Element.classList.add("typing"); // タイピング効果用のクラスを追加
+    typeText();
+});
 
 // ページ読み込み時にローカルストレージからデータを取得
 window.onload = () => {
@@ -530,4 +558,3 @@ window.onload = () => {
         });
     }
 };
-
