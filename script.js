@@ -532,7 +532,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (index < text.length) {
             h1Element.textContent += text.charAt(index);
             index++;
-            setTimeout(typeText, 150); // 150msごとに1文字追加
+            setTimeout(typeText, 150); // 350msごとに1文字追加
         } else {
             h1Element.classList.remove("typing");
         }
