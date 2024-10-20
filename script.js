@@ -63,14 +63,6 @@ function goToDay(day) {
 
         urinationButtonsDiv.appendChild(button);
     }
-
- // 他のデータの初期化または表示
-    document.getElementById('date-picker').value = record.date || '';
-    document.getElementById('sleep-time').value = record.sleepTime || '';
-    document.getElementById('wake-time').value = record.wakeTime || '';
-    // 飲酒状態の設定
-    toggleDrinking(record.drinking);
-   
    
     // 既存の記録から選択された排尿時刻を復元する
     if (record && record.urinationTimes) {
@@ -80,6 +72,10 @@ function goToDay(day) {
             selectedUrinationTimes.add(hourInt);
         });
     }
+    
+      // 飲酒状態の設定
+    toggleDrinking(record.drinking);
+   
 // その他のデータの初期化または表示
     document.getElementById('date-picker').value = record.date;
     document.getElementById('sleep-time').value = record.sleepTime;
@@ -138,8 +134,7 @@ function saveRecord() {
     const urinationTimes = Array.from(selectedUrinationTimes).map(hour => {
         // 時間を「:30」に変換
         return `${String(hour).padStart(2, '0')}:30`;
-        const urinationTimes = Array.from(selectedUrinationTimes);
-        const medications = Array.from(selectedMedications);
+    const medications = Array.from(selectedMedications);
     });
 
 
@@ -374,10 +369,7 @@ function drawGraph(day, aggregate = false) {
     ctx.fillText(`総排尿回数: ${record.totalUrinationCount}`, 200, 200);
     ctx.fillText(`夜間排尿回数: ${record.nightUrinationCount}`, 200, 220);
     ctx.fillText(`飲酒の有無: ${record.drinking}`, 200, 240); // 飲酒の有無を表示
-    ctx.fillText(``, 200, 260);
-    ctx.fillText(`黄:睡眠時間`, 200, 280);
-    ctx.fillText(`青:昼寝時間`, 200, 300);
-    ctx.fillText(`ピンク:運動時間`, 200, 320);
+ 
 }
 
 function timeToAngle(timeStr) {
@@ -387,9 +379,6 @@ function timeToAngle(timeStr) {
     return angle;
 }
 
-function isInNightPeriod(sleepTime, wakeTime, time) {
-    return time >= sleepTime || time <= wakeTime;
-}
 
 function goToTopPage() {
     document.getElementById('record-page').style.display = 'none';
@@ -441,7 +430,6 @@ function toggleDrinking(status) {
     localStorage.setItem('records', JSON.stringify(records));
 }
 
-let selectedMedications = new Set();
 
 // 服薬ボタンの選択状態を切り替える
 function toggleMedication(medicationType) {
