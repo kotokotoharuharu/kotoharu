@@ -9,7 +9,7 @@ body, html {
 h1 {
   position: relative;
   display: inline-block; /* 枠を文字の長さに合わせる */
-  padding: 2rem 3rem;
+  padding: 1rem 3rem;
   text-align: left;
   color: #22ac38;
   border-radius: 0 15px 15px 15px;
